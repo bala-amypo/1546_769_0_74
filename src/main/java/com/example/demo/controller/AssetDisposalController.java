@@ -1,31 +1,20 @@
-package com.example.demo.controller;
-
-import com.example.demo.entity.AssetDisposal;
-import com.example.demo.service.AssetDisposalService;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-
-@RestController
-@RequestMapping("/api/asset-disposals")
-@CrossOrigin
-public class AssetDisposalController {
-
-    private final AssetDisposalService service;
-
-    public AssetDisposalController(AssetDisposalService service) {
-        this.service = service;
-    }
-
-    // POST /api/asset-disposals
-    @PostMapping
-    public AssetDisposal requestDisposal(@RequestBody AssetDisposal disposal) {
-        return service.requestDisposal(disposal);
-    }
-
-    // GET /api/asset-disposals
-    @GetMapping
-    public List<AssetDisposal> getAllDisposals() {
-        return service.getAllDisposals();
-    }
-}
+ 
+package com.example.demo.controller; 
+import com.example.demo.entity.AssetDisposal; 
+import com.example.demo.service.AssetDisposalService; 
+import org.springframework.http.ResponseEntity; 
+import org.springframework.web.bind.annotation.*; 
+ 
+@RestController @RequestMapping("/api/disposals") 
+public class AssetDisposalController { 
+    private final AssetDisposalService service; 
+    public AssetDisposalController(AssetDisposalService service) { this.service = service; } 
+    @PostMapping("/request/{assetId}") public ResponseEntity<AssetDisposal> request(@PathVariable 
+Long assetId, @RequestBody AssetDisposal d) { 
+        return ResponseEntity.ok(service.requestDisposal(assetId, d)); 
+    } 
+    @PutMapping("/approve/{disposalId}/{adminId}") public ResponseEntity<?> 
+approve(@PathVariable Long disposalId, @PathVariable Long adminId) { 
+        return ResponseEntity.ok(service.approveDisposal(disposalId, adminId)); 
+    } 
+} 
