@@ -3,17 +3,20 @@ package com.example.demo.entity;
 import jakarta.persistence.*;
 
 @Entity
-public class Vendor {
+@Table(name = "roles")
+public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true, nullable = false)
     private String name;
-    private String contact;
 
-    public Vendor() {}
+    // Required by JPA
+    public Role() {}
 
+    // Getters & Setters
     public Long getId() {
         return id;
     }
@@ -28,13 +31,5 @@ public class Vendor {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getContact() {
-        return contact;
-    }
-
-    public void setContact(String contact) {
-        this.contact = contact;
     }
 }
