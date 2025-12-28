@@ -1,28 +1,11 @@
-package com.example.demo.service.Impl;
+package com.example.demo.service;
 
 import com.example.demo.entity.DepreciationRule;
-import com.example.demo.repository.DepreciationRuleRepository;
-import com.example.demo.service.DepreciationRuleService;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 
-@Service
-public class DepreciationRuleServiceImpl implements DepreciationRuleService {
+public interface DepreciationRuleService {
 
-    private final DepreciationRuleRepository repository;
+    DepreciationRule saveRule(DepreciationRule rule);
 
-    public DepreciationRuleServiceImpl(DepreciationRuleRepository repository) {
-        this.repository = repository;
-    }
-
-    @Override
-    public DepreciationRule saveRule(DepreciationRule rule) {
-        return repository.save(rule);
-    }
-
-    @Override
-    public List<DepreciationRule> getAllRules() {
-        return repository.findAll();
-    }
+    List<DepreciationRule> getAllRules();
 }
